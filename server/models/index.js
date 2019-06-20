@@ -24,25 +24,23 @@ module.exports = {
 
   users: {
     // Ditto as above.
-    get: function () {},
+    get: function (callback) {
+      db.connection.query(`SELECT * FROM users`, (err, results) => {
+        if (err) {
+          callback(err, null);
+        } else {
+          callback(null, results);
+        }
+      });
+    },
     post: function (name, callback) {
-      
       db.connection.query(`INSERT INTO users (username) VALUES ("${name}")`, (err, result) => {
         if (err) {
           callback(err, null);
         } else {
           callback(null, result);
         }
-      })
+      });
     }
   }
 };
-
-// CREATE TABLE messages (
-//   /* Describe your table here.*/
-//   id INT AUTO_INCREMENT,
-//   user TEXT,
-//   content TEXT,
-//   room TEXT,
-//   PRIMARY KEY (id)
-// );

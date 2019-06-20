@@ -9,7 +9,7 @@ module.exports = {
         } else {
           res.send(data);
         }
-      })
+      });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       const {username, message, roomname} = req.body;
@@ -27,7 +27,13 @@ module.exports = {
   users: {
     // Ditto as above
     get: function (req, res) {
-
+      models.users.get((err, data) => {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.send(data);
+        }
+      });
     },
     post: function (req, res) {
       // get req.body.username
@@ -44,4 +50,23 @@ module.exports = {
       });
     }
   }
-}
+};
+
+// module.exports = {
+//   messages: {
+//     get: {  
+      
+//     },
+//     post: {
+
+//     }
+//   }, 
+//   users: {
+//     get: {
+
+//     }, 
+//     post: {
+
+//     }
+//   }
+// };
