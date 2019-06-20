@@ -10,6 +10,13 @@ var router = require('./routes.js');
 
 var app = express();
 module.exports.app = app;
+db.connection.connect((err) => {
+  if (err) {
+    throw err;
+  } else {
+    console.log('Connected!');
+  }
+});
 
 // Set what we are listening on.
 app.set('port', 3000);
@@ -27,13 +34,6 @@ app.use(express.static(__dirname + '/../client'));
 // If we are being run directly, run the server.
 if (!module.parent) {
   app.listen(app.get('port'));
-  db.connection.connect((err) => {
-    if (err) {
-      throw err;
-    } else {
-      console.log('Connected!');
-    }
-  });
   console.log('Listening on', app.get('port'));
 }
 
